@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Star } from "lucide-react";
 import { AvatarStack } from "@/components/ui/AvatarStack";
 import { formatPrice, cn } from "@/lib/utils";
@@ -18,15 +19,24 @@ export function CourseCard({
   course,
   priority,
   countTone = "lime",
+  interactive = true,
   className,
 }: {
   course: CourseDTO;
   priority?: boolean;
   countTone?: "lime" | "black";
+  /** Set false for purely decorative cards (no links, not focusable). */
+  interactive?: boolean;
   className?: string;
 }) {
   return (
-    <article className={cn("rounded-3xl border border-line bg-white p-4 text-ink", className)}>
+    <article
+      className={cn(
+        "relative rounded-3xl border border-line bg-white p-4 text-ink",
+        interactive && "transition-shadow focus-within:ring-2 focus-within:ring-brand hover:shadow-float",
+        className,
+      )}
+    >
       <div className="relative h-[195px] overflow-hidden rounded-2xl bg-pill">
         <Image
           src={course.image}
@@ -47,7 +57,13 @@ export function CourseCard({
 
       <div className="mt-4 flex items-start justify-between gap-3">
         <h3 className="min-w-0 truncate font-display text-xl font-semibold leading-tight" title={course.title}>
-          {course.title}
+          {interactive ? (
+            <Link href={`/courses/${course.slug}`} className="outline-none after:absolute after:inset-0 after:rounded-3xl after:content-['']">
+              {course.title}
+            </Link>
+          ) : (
+            course.title
+          )}
         </h3>
         <span className="flex shrink-0 items-center gap-1 pt-0.5 text-lg leading-none text-mute">
           {course.rating.toFixed(1)}
@@ -55,7 +71,14 @@ export function CourseCard({
         </span>
       </div>
       <p className="mt-0.5 text-xs text-mute">
-        by <span className="text-brand">{course.creator}</span>
+        by{" "}
+        {interactive ? (
+          <Link href={`/creators/${course.creatorSlug}`} className="relative z-10 text-brand hover:underline">
+            {course.creator}
+          </Link>
+        ) : (
+          <span className="text-brand">{course.creator}</span>
+        )}
       </p>
 
       <div className="mt-4 flex items-center gap-3">

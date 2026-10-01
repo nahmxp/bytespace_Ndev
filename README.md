@@ -6,7 +6,9 @@ Built as a **single Next.js monolith** (frontend and backend in one codebase) wi
 - **Frontend:** Next.js 15 (App Router), React 19, TypeScript, Tailwind CSS 3
 - **Backend:** Next.js Route Handlers (`src/app/api/*`), Mongoose 9, Zod validation
 - **Auth:** bcrypt password hashes + signed JWT in an `httpOnly` cookie (jose)
-- **Pages:** Landing (`/`), Courses (`/courses`), Login (`/login`), Signup (`/signup`), 404
+- **Pages:** Landing (`/`), Courses (`/courses`), Course details with About / Lessons / Reviews tabs
+  (`/courses/[slug]`, `/lessons`, `/reviews`), Creators (`/creators`), Creator profile (`/creators/[slug]`),
+  Login (`/login`), Signup (`/signup`), 404
 
 ## Quick start
 
@@ -29,7 +31,9 @@ catalogue (`src/lib/seed-data.ts`). Login, signup and the newsletter return a cl
 "Database is not configured" message until you add the URI.
 
 **With `MONGODB_URI`** the database is seeded automatically on first request (courses and testimonials).
-To seed manually: `npm run seed` (or `npm run seed:force` to wipe and re-seed).
+Seed data is versioned: if your database was seeded by an older version of the app, it is upgraded in place
+automatically (courses are matched by slug, so nothing is duplicated and users are never touched).
+To seed manually: `npm run seed` (or `npm run seed:force` to wipe and re-seed the catalogue).
 
 Check the connection any time at `GET /api/health`.
 
@@ -42,6 +46,9 @@ Check the connection any time at `GET /api/health`.
 | `POST /api/auth/logout` | Clear the session cookie |
 | `GET  /api/auth/me` | Current user or `null` |
 | `GET  /api/courses` | `?category=&q=&level=&sort=&page=&limit=` |
+| `POST /api/enrollments` | Enroll the signed-in user `{ slug }` (idempotent) |
+| `POST /api/enrollments/progress` | Mark a module done / not done `{ slug, module, done }` |
+| `POST /api/creators/:slug/follow` | Toggle following a creator; returns the new follower count |
 | `POST /api/newsletter` | Subscribe `{ email }` (idempotent) |
 | `GET  /api/health` | App + database status |
 
@@ -86,4 +93,11 @@ git push -u origin feature/bytespace-landing
 - The Figma newsletter button reads "Search"; it is labelled "Subscribe" here because that is what it does.
 - Facebook / Google buttons on the auth pages are visual only (no OAuth is wired up) and say so when clicked.
 - The cart icon links to the course catalogue; there is no cart or checkout in the design.
-- Course cards are not linked to detail pages because the brief covers only landing, login and signup.
+- Course cards open the course page; the "by ..." line on a card opens the creator profile.
+- **Enroll Now**, **Follow** and lesson progress are real and need a login (logged-out visitors are sent to
+  login and brought back). The progress card reflects the modules you actually tick off, so it shows 0% until
+  you do, rather than the 55% sample in the design.
+- There is no video hosting: the play button on a course opens its Lessons tab.
+- Reviews are sample data shared by every course; there is no review submission.
+- The design's course screens contradict each other (e.g. 17 vs 112 lessons, 4.5 vs 4.8 stars). The app uses a
+  single source of truth per course, so the details page matches the course card.
