@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-white font-sans text-ink antialiased;
+  }
+  h1, h2, h3, h4 {
+    @apply font-display;
+  }
+  :focus-visible {
+    outline: 2px solid #003be2;
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+  .on-blue :focus-visible,
+  .on-blue:focus-visible {
+    outline-color: #d4fb20;
+  }
+  ::selection {
+    background: #d4fb20;
+    color: #040819;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  /* Brand blue with the faint 120px design grid */
+  .bg-grid {
+    background-color: #003be2;
+    background-image:
+      linear-gradient(to left, rgba(255, 255, 255, 0.16) 1.5px, transparent 1.5px),
+      linear-gradient(to top, rgba(255, 255, 255, 0.16) 1.5px, transparent 1.5px);
+    background-size: 120px 120px;
+    background-position: 0 0;
+  }
+
+  /*
+   * Artwork stage: children are positioned in "design pixels" on a 1440px canvas
+   * (see u() in lib/utils.ts) and scale with the container width.
+   * Below md the canvas is 760 design px wide so artwork stays large on phones.
+   */
+  .stage {
+    container-type: inline-size;
+    --u: calc(100cqw / 760);
+  }
+  @media (min-width: 768px) {
+    .stage { --u: calc(100cqw / 1440); }
+  }
+
+  /* Soft lime + periwinkle wash used behind the growth and testimonial sections */
+  .wash {
+    background:
+      radial-gradient(60% 45% at 18% 8%, rgba(212, 251, 32, 0.38), transparent 70%),
+      radial-gradient(45% 40% at 96% 12%, rgba(178, 193, 245, 0.5), transparent 70%),
+      radial-gradient(50% 40% at 4% 60%, rgba(178, 193, 245, 0.55), transparent 70%),
+      radial-gradient(40% 40% at 0% 96%, rgba(212, 251, 32, 0.4), transparent 70%),
+      radial-gradient(45% 35% at 100% 94%, rgba(178, 193, 245, 0.6), transparent 70%),
+      #fbfbfb;
+  }
+}

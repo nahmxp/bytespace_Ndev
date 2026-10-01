@@ -1,0 +1,37 @@
+{
+  "name": "bytespace",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ByteSpace - online course marketplace (Next.js + MongoDB monolith)",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "seed": "tsx scripts/seed.ts",
+    "seed:force": "tsx scripts/seed.ts --force"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.0",
+    "clsx": "^2.1.1",
+    "jose": "^6.0.0",
+    "lucide-react": "^0.400.0",
+    "mongoose": "^9.0.0",
+    "next": "^15.5.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "sharp": "^0.34.0",
+    "zod": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "autoprefixer": "^10.4.0",
+    "postcss": "^8.4.0",
+    "tailwindcss": "^3.4.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.0.0"
+  }
+}
