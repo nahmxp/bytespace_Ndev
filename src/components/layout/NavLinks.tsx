@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 export const NAV_ITEMS = [
   { href: "/", label: "Home" },
   { href: "/courses", label: "Courses" },
-  { href: "/#creators", label: "Creators" },
+  { href: "/creators", label: "Creators" },
 ];
 
 export function NavLinks({ className }: { className?: string }) {
@@ -15,7 +15,7 @@ export function NavLinks({ className }: { className?: string }) {
   return (
     <nav aria-label="Primary" className={cn("flex items-center gap-8", className)}>
       {NAV_ITEMS.map((item) => {
-        const active = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href.split("#")[0]) && !item.href.includes("#");
+        const active = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
         return (
           <Link
             key={item.label}

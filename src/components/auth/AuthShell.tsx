@@ -10,9 +10,9 @@ const back = SEED_COURSES.find((c) => c.slug === "build-digital-asset")!;
 function Artwork() {
   return (
     <div className="relative hidden h-[560px] w-[500px] xl:block" aria-hidden="true">
-      <CourseCard course={back} countTone="black" className="absolute left-0 top-[88px] w-[373px] shadow-float" />
+      <CourseCard course={back} interactive={false} countTone="black" className="absolute left-0 top-[88px] w-[373px] shadow-float" />
       <Shape name="torus" tone="lime" className="left-[46px] top-[30px] z-20 w-[128px] -rotate-12" />
-      <CourseCard course={front} countTone="black" className="absolute left-[111px] top-0 z-10 w-[373px] shadow-float" />
+      <CourseCard course={front} interactive={false} countTone="black" className="absolute left-[111px] top-0 z-10 w-[373px] shadow-float" />
       <Shape name="pyramid" tone="lime" className="left-[-6px] top-[410px] z-20 w-[140px]" />
       <HappyStudentsCard tone="lime" className="absolute left-[226px] top-[435px] z-30 w-[258px]" />
       <Shape name="spring-a" tone="white" className="left-[372px] top-[338px] z-40 w-[130px] rotate-[8deg]" />

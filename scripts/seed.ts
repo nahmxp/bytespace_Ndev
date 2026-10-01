@@ -14,7 +14,7 @@ async function main() {
   const mongoose = (await import("mongoose")).default;
   const force = process.argv.includes("--force");
   const res = await seedDatabase({ force });
-  console.log(`Seed complete: ${res.courses} courses, ${res.testimonials} testimonials inserted.`);
+  console.log(`Seed complete: ${res.courses} courses, ${res.creators} creators, ${res.testimonials} testimonials written.`);
   await mongoose.disconnect();
 }
 

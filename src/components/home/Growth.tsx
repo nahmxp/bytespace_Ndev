@@ -35,7 +35,7 @@ export function Growth() {
         </div>
 
         <div className="relative mx-auto h-[440px] w-full max-w-[600px] sm:h-[520px] lg:h-[570px]" aria-hidden="true">
-          <CourseCard course={SEED_COURSES[0]} className="absolute left-0 top-3 hidden w-[373px] shadow-float lg:block" />
+          <CourseCard course={SEED_COURSES[0]} interactive={false} className="absolute left-0 top-3 hidden w-[373px] shadow-float lg:block" />
           <Image
             src="/images/photos/hero-student.webp"
             alt=""
